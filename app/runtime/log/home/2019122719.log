@@ -1,0 +1,4 @@
+[FATAL] 2019-12-27 19:57:24 : /www/wwwroot/control.inwang.net/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
+ [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)
+[FATAL] 2019-12-27 19:57:51 : /www/wwwroot/control.inwang.net/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
+ [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)

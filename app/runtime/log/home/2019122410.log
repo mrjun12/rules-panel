@@ -1,0 +1,12 @@
+[FATAL] 2019-12-24 10:25:58 : /Users/mrjun/LocalWeb/phppoem/core/db.php:298 42000, 1064, You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key) VALUES ('测试服务器3','baidu.com','2222','127.0.0.1','2322','998964098' at line 1
+ [SQL 语句]：INSERT INTO `server_list` (name,server_cname,server_port,server_ip,remark,key) VALUES (:name,:server_cname,:server_port,:server_ip,:remark,:key)
+[FATAL] 2019-12-24 10:26:58 : /Users/mrjun/LocalWeb/phppoem/core/db.php:298 42000, 1064, You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key) VALUES ('测试服务器3','baidu.com','1221','127.0.0.1','qweq','996428244' at line 1
+ [SQL 语句]：INSERT INTO `server_list` (name,server_cname,server_port,server_ip,remark,key) VALUES (:name,:server_cname,:server_port,:server_ip,:remark,:key)
+[FATAL] 2019-12-24 10:27:53 : /Users/mrjun/LocalWeb/phppoem/core/db.php:298 42000, 1064, You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key) VALUES ('测序','baidu.com','233','125.5.5.5','12312','4882188268')' at line 1
+ [SQL 语句]：INSERT INTO `server_list` (name,server_cname,server_port,server_ip,remark,key) VALUES (:name,:server_cname,:server_port,:server_ip,:remark,:key)
+[FATAL] 2019-12-24 10:34:56 : /Users/mrjun/LocalWeb/phppoem/core/db.php:298 42000, 1064, You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key) VALUES ('123123','127.0.0.1','123','12312','123','4739736501')' at line 1
+ [SQL 语句]：INSERT INTO `server_list` (name,server_cname,server_port,server_ip,remark,key) VALUES (:name,:server_cname,:server_port,:server_ip,:remark,:key)
+[FATAL] 2019-12-24 10:37:31 : /Users/mrjun/LocalWeb/phppoem/core/db.php:298 42000, 1064, You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key) VALUES ('123','123','123','123','123','819923621')' at line 1
+ [SQL 语句]：INSERT INTO `server_list` (name,server_cname,server_port,server_ip,remark,key) VALUES (:name,:server_cname,:server_port,:server_ip,:remark,:key)
+[FATAL] 2019-12-24 10:37:50 : /Users/mrjun/LocalWeb/phppoem/core/db.php:298 HY000, 1364, Field 'key' doesn't have a default value
+ [SQL 语句]：INSERT INTO `server_list` (name,server_cname,server_port,server_ip,remark) VALUES (:name,:server_cname,:server_port,:server_ip,:remark)

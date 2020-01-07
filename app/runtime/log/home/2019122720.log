@@ -1,0 +1,12 @@
+[FATAL] 2019-12-27 20:01:07 : /www/wwwroot/control.inwang.net/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
+ [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)
+[FATAL] 2019-12-27 20:01:29 : /www/wwwroot/control.inwang.net/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
+ [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)
+[FATAL] 2019-12-27 20:01:49 : /www/wwwroot/control.inwang.net/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
+ [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)
+[FATAL] 2019-12-27 20:03:08 : /www/wwwroot/control.inwang.net/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
+ [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)
+[FATAL] 2019-12-27 20:04:03 : /www/wwwroot/control.inwang.net/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
+ [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)
+[FATAL] 2019-12-27 20:04:15 : /www/wwwroot/control.inwang.net/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
+ [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)

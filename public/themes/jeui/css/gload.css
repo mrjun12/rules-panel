@@ -1,0 +1,9 @@
+.pane-link{display: block;background-color: #f2f2f2;border-radius: 5px;overflow: hidden;}
+.pane-icon{display: inline-block;padding: 30px 0;float: left;}
+.pane-word {display: inline-block;float: right;margin-top: 22px;}
+.pane-word span {font-size: 25px;display: block;height: 30px;line-height: 30px;}
+.pane-word cite {font-size: 16px;display: block;font-style: normal;}
+
+.linebox{border: 1px solid #ddd;}
+.linebox .linetit{background-color: #EFEFEF;height:40px;line-height: 40px;border-bottom: 1px solid #ddd;}
+.linebox .linecon{padding: 10px;}

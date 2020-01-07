@@ -1,0 +1,135 @@
+<include "../public/head"/>
+<body>
+<div class="je-p20">
+    
+    <blockquote class="je-quote green je-f16 je-ovh  je-mb10">
+        <p class="je-pb5 checkbox">
+            <button class="je-btn" id="addart"><i class="je-icon je-f20">&#xe66e;</i> 添加服务器</button>
+            <button class="je-btn je-bg-red" onclick="getTheCheckBoxValue()"><i class="je-icon je-f20">&#xe63e;</i> 批量删除</button>
+            <button class="je-btn je-bg-orange" onclick="location.reload()"><i class="je-icon je-f20">&#xe601;</i></button>
+        </p>
+    </blockquote>
+    <table class="je-table je-mb20" id="newCheck">
+        <thead>
+        <tr>
+            <th width="5%"><input type="checkbox" name="checkbox" id="gocheck" jename="chunk"></th>
+            <th width="5%" align="left">ID</th>
+            <th width="10%">名称</th>
+            <th width="15%">CNAME</th>
+            <th width="15%">IP</th>
+            <th width="15%">Key</th>
+            <th width="5%">端口</th>
+            <th width="30%">备注</th>
+            <th width="30%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+    	<each "$server_list as $v">
+        	<tr>
+	            <td align="center"><input type="checkbox" name="checkbox" jename="chunk" value="{$v['id']}"></td>
+	            <td>{$v['id']}</td>
+	            <td>{$v['name']}</td>
+                <td>{$v['server_cname']}</td>
+                <td>{$v['server_ip']}</td>
+                <td>{$v['server_key']}</td>
+                <td>{$v['server_port']}</td>
+                <td>{$v['remark']}</td>
+	            <td align="center">
+	                <button class="je-btn je-btn-mini je-f12" onclick="edit('{$v['id']}')">编辑</button>
+	            </td>
+	        </tr>
+		</each>
+        
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    function getTheCheckBoxValue(){
+        parent.jeBox.msg('是否删除？', {
+            time: 0 ,
+            button: [ 
+                {
+                    name: '删除',
+                    callback:function(index){
+                        jeBox.close(index);
+                        var test = $("input[name='checkbox']:checked");
+                        var checkBoxValue = ""; 
+                        test.each(function(){
+                            checkBoxValue += $(this).val()+",";
+                        })
+                        checkBoxValue = checkBoxValue.substring(0,checkBoxValue.length-1);
+                        console.log(checkBoxValue);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "serverdelete",
+                            timeout: 60000,
+                            async: true,
+                            data: {
+                                "data":checkBoxValue
+                            },
+                            success: function(data, textStatus) {   
+                                if(data.ret == 0)
+                                    parent.jeBox.alert(data.message);
+                                else{
+                                    parent.jeBox.msg('删除成功。');
+                                    setTimeout(function(){
+                                        location.reload()
+                                    },1000);
+                                }
+                            }
+                        });
+
+                    }
+                },{
+                    name: '取消'
+                }
+            ]
+        });
+    }
+
+
+    function edit(id){
+
+        url = 'editserver?id='+id;
+        jeBox.open({
+            type: 'iframe',
+            boxSize: ['70%', '70%'],
+            maxBtn: true,
+            scrollbar: false,
+            content: url
+        });
+
+    }
+
+    jeui.use(["jquery","jeBox","jeDate","jeCheck","jeSelect"],function () {
+
+        $("#addart").on("click",function(){
+            jeBox.open({
+                type: 'iframe',
+                boxSize: ['70%', '70%'],
+                maxBtn: true,
+                scrollbar: false,
+                content: 'addserver'
+            });
+        })
+        $(".checkbox").jeCheck();
+        $(".checkbox").jeCheck({jename:"radio"});
+        $(".checkbox").jeCheck({jename:"switch"});
+        $("#newCheck").jeCheck({
+            jename:"chunk",
+            attrName:[false,"勾选"], 
+            itemfun: function(elem,bool) {
+            	console.log(elem)
+                console.log(bool)
+                console.log(elem.prop('checked'))
+            },
+            success:function(elem){
+                jeui.chunkSelect(elem,'#gocheck','on')
+                
+            }
+        });
+    });
+</script>
+</body>
+</html>

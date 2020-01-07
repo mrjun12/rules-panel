@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* dialog ------------------------------------*/
+.jeBox{-webkit-background-clip: padding-box;background-clip: padding-box;display:inline-block; width:auto; height:auto;
+    background:rgba(0,0,0,.4); -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000);zoom: 1;}
+.jeBox-wrap{display:inline-block;outline: 0;background-color:#ffffff; border-radius: 4px;font-family:'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, 'Lantinghei SC', 'Hiragino Sans GB', 'Microsoft YaHei', '\5FAE\8F6F\96C5\9ED1', STHeiti, 'WenQuanYi Micro Hei', SimSun, sans-serif;-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:.3s;animation-duration:.3s}
+.jeBox-header{height:40px;line-height:40px;padding:0 36px 0 10px;font-size:16px;background-color:#e6e6e6;border-bottom:1px solid #DDDDDD;color:#333;border-radius: 4px 4px 0 0;}
+.jeBox-content{ line-height:24px; word-break:break-all;font-size:14px; overflow:auto;}
+.jeBox-footer{ overflow:hidden; padding:0 5px;}
+.jeBox-footer button {display: inline-block;vertical-align: top;margin: 5px; height: 32px;line-height: 32px; border-radius: 4px; padding: 0 8px; background-color: #f1f1f1;color: #333;border: 1px #ccc solid;font-size: 14px;cursor:pointer;outline:none;-moz-outline:none;font-family:'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, 'Lantinghei SC', 'Hiragino Sans GB', 'Microsoft YaHei', '\5FAE\8F6F\96C5\9ED1', STHeiti, 'WenQuanYi Micro Hei', SimSun, sans-serif;}
+.jeBox-footer button.jeBox-btn0{background-color:#0099CC;color:#fff;border: 1px #0099CC solid;}
+.jeBox-footer button[disabled]{cursor: default;color: #666; background: #DDD; border: solid 1px #bbb;filter: alpha(opacity=50);opacity: .5;}
+.jeBox-headbtn{display: inline-block;position:absolute; right:0; top:0; z-index:1; height:40px;}
+.jeBox-headbtn a{color:#999;display:block; width:30px; height:40px; line-height:40px;overflow:hidden;float:left; text-decoration:none;}
+.jeBox-headbtn a:hover{color:#999; background-color: rgb(215,215,215)}
+.jeBox-close{background-position:center center;background-repeat:no-repeat;background-image:url(icon/close.png);}
+.jeBox-maxbtn{background-position:center center;background-repeat:no-repeat;background-image:url(icon/full.png);}
+.jeBox-maxbtn.revert{background-image:url(icon/reduction.png);}
+.jeBox-yesbut{display:inline-block; margin:6px 8px 6px 0; height:32px; line-height:0; padding:0 20px; vertical-align:top; font-size:14px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px;background:rgb(69,146,240);border:1px #3484e5 solid;color:#fff; text-decoration:none; cursor:pointer; }
+.jeBox-yesbut:hover{ background:rgb(69,146,240);}
+.jeBox-nobut{display:inline-block; margin:6px 8px 6px 0; height:32px; line-height:0; padding:0 20px; font-size:14px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px;background-color: #ECECEC;border:1px #C3C3C3 solid;color:#333; text-decoration:none;cursor:pointer;}
+.jeBox-nobut:hover{ background-color:#ECECEC;}
+.jeBox-mask{width:100%;height:100%;left:0;top:0;margin:0;padding:0;zoom: 1;border:none;position:fixed; _position:absolute;}
+.jeBox-moves{position: fixed; border:2px #444 solid; cursor:move; border-radius: 4px;overflow: hidden;}
+.jeBox-moves .movescon{width:100%;height:100%;left:0; top:0; right:0;bottom:0;background:rgb(233,233,233);opacity:0.5;filter:alpha(opacity=50)}
+.jeBox-content iframe{display: block;width: 100%;}
+.jeBox-content ::-webkit-scrollbar{height:8px;width:8px;margin-right:5px;transition:all 0.3s ease-in-out;border-radius:0px;}
+.jeBox-content ::-webkit-scrollbar-track { -webkit-border-radius: 0px;border-radius: 0px;}
+.jeBox-content ::-webkit-scrollbar-track-piece{background-color:#F3F3F3;}
+.jeBox-content ::-webkit-scrollbar-thumb{-webkit-border-radius: 0px;border-radius: 0px;background: rgba(0,0,0,0.5); }
+.jeBox-content ::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,0.6)}
+.jeBox-content ::-webkit-scrollbar-thumb:active{background:rgba(0,0,0,0.8)}
+.jeBox-content ::-webkit-scrollbar-thumb:window-inactive {background: rgba(0,0,0,0.4); }
+
+.jeBox-iconbox{ padding:5px 5px 5px 45px;min-height:30px; line-height:30px;background-position:5px center;font-size:14px; background-repeat:no-repeat;}
+.jeBox-iconbox.jeicon1{ background-image:url(icon/jeicon1.png);}
+.jeBox-iconbox.jeicon2{ background-image:url(icon/jeicon2.png);}
+.jeBox-iconbox.jeicon3{ background-image:url(icon/jeicon3.png);}
+.jeBox-iconbox.jeicon4{ background-image:url(icon/jeicon4.png);}
+.jeBox-iconbox.jeicon5{ background-image:url(icon/jeicon5.png);}
+.jeBox-iconbox.jeicon6{ background-image:url(icon/jeicon6.png);}
+.jeBox-iconbox.jeicon7{ background-image:url(icon/jeicon7.png);}
+
+.jeBox-loadbox{ width:80px;line-height:24px; padding-top:40px;font-size:12px; margin:0 auto; text-align:center;  background-repeat:no-repeat;}
+.jeBox-loadbox.jeload1{background-image:url(icon/loading1.gif);background-position:center 10px;}
+.jeBox-loadbox.jeload2{background-image:url(icon/loading2.gif);background-position:center 5px;}
+.jeBox-loadbox.jeload3{background-image:url(icon/loading3.gif);background-position:center 5px;}
+
+.jeBox-tips{position: absolute;border-radius: 3px;}
+.jeBox-tips em{width:0;height:0;border:8px solid transparent;z-index:0;position:absolute;margin-left:0px;}
+.jeBox-tips .jeBox-tipscon{min-height:18px;line-height:18px;padding: 6px;font-size: 12px;color: #fff;float: left;overflow: hidden;word-break:break-all;}
+
+.jeBox-wrap.jeBox-ies{border: 1px #c2c2c2 solid;}
+.jeBox-wrap.jeBox-anim{-webkit-box-shadow: 0 1px 5px 1px rgba(0,0,0,0.7);box-shadow: 0 1px 5px 1px rgba(0,0,0,0.7);-webkit-animation-name:bounceIn;animation-name:bounceIn;}
+.jeBox-wrap.jeBox-animMsg{background-color: rgba(0,0,0,0.65);color:#ffffff;-webkit-animation-name:bounceIn;animation-name:bounceIn;}
+.jeBox-wrap.jeBox-animLoad{border: 1px #c2c2c2 solid;background-color: rgba(255,255,255,0.95);-webkit-animation-name:bounceIn;animation-name:bounceIn;}
+@-webkit-keyframes bounceIn{ 0%{opacity:0;-webkit-transform:scale(.5);transform:scale(.5)} to{opacity:1;-webkit-transform:scale(1);transform:scale(1)} }
+@keyframes bounceIn{ 0%{opacity:0;-webkit-transform:scale(.5);transform:scale(.5)} to{opacity:1;-webkit-transform:scale(1);transform:scale(1)} }
