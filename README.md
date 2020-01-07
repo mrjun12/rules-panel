@@ -2,7 +2,7 @@
 
 1. 上传源代码 设置public文件夹为运行目录。
 2. 伪静态配置：`location /{     if (!-e $request_filename) {       rewrite ^/(.*)$ /index.php/$1 last;       break;     }    }  `
-3. 设置cron定时任务 文件 https://网址/corn (5分钟一次)
+3. 设置cron定时任务  https://网址/corn (5分钟一次)
 4. 导入数据库（test.sql） 默认用户名密码为：admin 123456
 
 # 被控端部署:
@@ -12,6 +12,7 @@
 #请勿安装其他基于iptables的ddns转发脚本
 
 #安装nodejs最新版（centos）
+
 `yum install epel-* -y`
 
 `yum install nodejs -y`
@@ -24,9 +25,7 @@
 
 #安装nodejs最新版（debian）
 
-``curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -`
-
-`apt-get install nodejs`
+`curl -sL https://deb.nodesource.com/setup_9.x | sudo bash - apt-get install nodejs`
 
 `npm install pm2 -g`
 
@@ -80,8 +79,12 @@
 
 ##### #其他命令
 
-pm2 list       #查询
-pm2 logs 0  #查询日志
-pm2 stop 0 #暂停
-pm2 flush   #清除日志
-reboot         #重启服务器 
+`pm2 list`       #查询
+
+`pm2 logs 0`  #查询日志
+
+`pm2 stop 0` #暂停
+
+`pm2 flush`   #清除日志
+
+`reboot`         #重启服务器 
