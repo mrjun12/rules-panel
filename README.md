@@ -1,3 +1,9 @@
+![](https://raw.githubusercontent.com/Git-Lofter/rules-panel/master/img/01.png)
+
+![](https://raw.githubusercontent.com/Git-Lofter/rules-panel/master/img/02.png)
+
+![](https://raw.githubusercontent.com/Git-Lofter/rules-panel/master/img/03.png)
+
 # 控制端部署：
 
 1. 上传源代码 设置public文件夹为运行目录。
