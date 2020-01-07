@@ -1,8 +1,0 @@
-[FATAL] 2019-12-20 08:03:22 : /Users/mrjun/LocalWeb/phppoem/core/load.php:45 Class 'css\controller\jeui' not found
-[FATAL] 2019-12-20 08:03:22 : /Users/mrjun/LocalWeb/phppoem/core/load.php:45 Class 'css\controller\gload' not found
-[FATAL] 2019-12-20 08:03:23 : /Users/mrjun/LocalWeb/phppoem/core/load.php:45 Class 'css\controller\jeui' not found
-[FATAL] 2019-12-20 08:03:23 : /Users/mrjun/LocalWeb/phppoem/core/load.php:45 Class 'css\controller\gload' not found
-[FATAL] 2019-12-20 08:03:36 : /Users/mrjun/LocalWeb/phppoem/core/load.php:45 Class 'css\controller\jeui' not found
-[FATAL] 2019-12-20 08:03:36 : /Users/mrjun/LocalWeb/phppoem/core/load.php:45 Class 'css\controller\gload' not found
-[FATAL] 2019-12-20 08:03:40 : /Users/mrjun/LocalWeb/phppoem/core/load.php:45 Class 'css\controller\jeui' not found
-[FATAL] 2019-12-20 08:03:40 : /Users/mrjun/LocalWeb/phppoem/core/load.php:45 Class 'css\controller\gload' not found

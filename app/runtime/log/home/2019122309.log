@@ -1,2 +1,0 @@
-[FATAL] 2019-12-23 09:35:15 : /Users/mrjun/LocalWeb/phppoem/core/app.php:106 method [ home\controller\index->admin_log ] not exists 
-[FATAL] 2019-12-23 09:44:03 : /Users/mrjun/LocalWeb/phppoem/core/app.php:106 method [ home\controller\index->admin_log ] not exists 

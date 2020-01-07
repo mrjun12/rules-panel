@@ -1,6 +1,0 @@
-[FATAL] 2019-12-26 02:38:06 : /Users/mrjun/LocalWeb/phppoem/core/app.php:106 method [ home\controller\index->admin_log ] not exists 
-[FATAL] 2019-12-26 02:39:01 : /Users/mrjun/LocalWeb/phppoem/core/app.php:106 method [ home\controller\index->admin_log ] not exists 
-[FATAL] 2019-12-26 02:47:16 : /Users/mrjun/LocalWeb/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
- [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)
-[FATAL] 2019-12-26 02:47:44 : /Users/mrjun/LocalWeb/phppoem/core/db.php:298 42S22, 1054, Unknown column 'remark' in 'field list'
- [SQL 语句]：INSERT INTO `rules_log` (server_id,local_port,remote_cname,remote_ip,remote_port,remark,user_id,username,doing_type) VALUES (:server_id,:local_port,:remote_cname,:remote_ip,:remote_port,:remark,:user_id,:username,:doing_type)
