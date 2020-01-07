@@ -8,8 +8,8 @@
 
 1. 上传源代码 设置public文件夹为运行目录。
 2. 伪静态配置：`location /{     if (!-e $request_filename) {       rewrite ^/(.*)$ /index.php/$1 last;       break;     }    }  `
-3. 设置cron定时任务  https://网址/corn (5分钟一次)
-4. 导入数据库（test.sql） 默认用户名密码为：admin 123456
+3. 设置cron定时任务  https://网址/cron (5分钟一次)
+4. 导入数据库（test.sql）数据库配置文件app/config.php  默认用户名密码为：admin 123456
 
 # 被控端部署:
 
