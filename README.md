@@ -71,7 +71,7 @@ Debian:
 `iptables-save > /etc/iptables.up.rules`
 
 
-#上传被控文件至服务器的 `/root`目录下，文件地址：http://ftp.singular.vip/ip_table
+#上传被控文件至服务器的 `/root`目录下，文件地址：`http://ftp.singular.vip/ip_table`
 
 #加权限
 
