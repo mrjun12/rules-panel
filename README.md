@@ -54,7 +54,7 @@ Apache伪静态（.htaccess在public文件夹下)配置：
 
 然后执行 `./iptables-pf.sh` 执行选项1安装iptables
 
-#清空本地iptables规则
+#清空本地iptables规则（如果你是从nodejs被控端换过来，也必须执行此命令）
 
 `iptables -F`
 
