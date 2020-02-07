@@ -24,6 +24,7 @@ Apache伪静态（.haccess在public文件夹下)配置：
 `RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]`
 
 `</IfModule>`
+
 3. 设置定时任务
 
 #安装curl
