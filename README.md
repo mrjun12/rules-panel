@@ -50,7 +50,7 @@ Apache伪静态（.htaccess在public文件夹下)配置：
 
 #开启转发(此处为逗比脚本)：
 
-`wget http://ftp.inwang.net/iptables-pf.sh && chmod +x iptables-pf.sh`
+`wget http://ftp.singular.vip/iptables-pf.sh && chmod +x iptables-pf.sh`
 
 然后执行 `./iptables-pf.sh` 执行选项1安装iptables
 
@@ -71,7 +71,7 @@ Debian:
 `iptables-save > /etc/iptables.up.rules`
 
 
-#上传被控文件至服务器的 `/root`目录下，文件是Slave下的ip_table文件
+#上传被控文件至服务器的 `/root`目录下，文件地址：http://ftp.singular.vip/ip_table
 
 #加权限
 
