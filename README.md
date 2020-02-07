@@ -7,100 +7,31 @@
 # 控制端部署：
 
 1. 上传源代码 设置public文件夹为运行目录(注意，文件不包含Master文件夹)。
-2. 伪静态配置：`location /{     if (!-e $request_filename) {       rewrite ^/(.*)$ /index.php/$1 last;       break;     }    }  `
-3. 设置cron定时任务  https://网址/cron (5分钟一次)
+2. Nginx伪静态配置：
+`location /{     if (!-e $request_filename) {       rewrite ^/(.*)$ /index.php/$1 last;       break;     }    }  `
+Apache伪静态配置：
+`
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>
+
+`
+3. 设置定时任务
+#安装curl
+apt-get install curl -y
+#设定定时任务（5分钟执行一次）
+crontab -e
+#添加定时任务，请替换网址为你自己的
+*/5 * * * * curl https://网址/cron
 4. 导入数据库（test.sql）数据库配置文件app/config.php  默认用户名密码为：admin 123456
 
-# 被控端部署-NodeJS版(此版本不推荐使用，建议使用Golang版):
-
-#被控端安装教程（转发机器）
-#被控端安装很简单，被控端会接管iptables的NAT规则，其他NAT命令会失效
-#请勿安装其他基于iptables的ddns转发脚本
-
-#安装nodejs最新版（centos）
-
-`yum install epel-* -y`
-
-`yum install nodejs -y`
-
-`npm install n -g`
-
-`n latest`
-
-`npm install pm2 -g`
-
-#安装nodejs最新版（debian）
-
-`curl -sL https://deb.nodesource.com/setup_9.x | sudo bash - apt-get install nodejs`
-
-`npm install pm2 -g`
-
-`npm install n -g`
-
-`n latest`
-
-
-#nodejs和pm2安装结束
-
-#pm2开机自启
-
-`pm2 startup`
-
-#新建文件夹iptables_forward
-
-`mkdir iptables_forward`
-
-#将 app.js、package.json两个文件放进去
-
-#修改app.js文件，如下三处，保存
-
-​	`const master_url = "https://baidu.com"  #填写Master URL`
-
-​	`const slave_key = '123456'; #填写节点key`
-
-​	`const nic_ip = '1.1.1.1'; #主网卡上的IP（如果主网卡IP=公网IP时，当IP变动，需更新此处IP，并且重启本进程！！！）`
-
-
-
-*Mater URL是主控的网址
-
-*key是主控添加服务器后生成的
-
-*主网卡IP查看方法：`ip addr`
-
-#然后在该文件夹下执行
-
-`npm install` 
-
-#安装iptables转发（逗比转发脚本）
-
-`wget http://ftp.inwang.net/iptables-pf.sh && chmod +x iptables-pf.sh`
-
-#执行iptables转发脚本，执行第一个选项安装iptables
-
-#启动
-
-`pm2 start app.js`
-
-#开机自启
-
-`pm2 save`
-
-#重启服务器 
-
-`reboot`     
-
-#NodeJS版被控端到此安装完成！
-
-##### #其他NodeJS命令
-
-`pm2 list`       #查询
-
-`pm2 logs 0`  #查询日志
-
-`pm2 stop 0` #暂停
-
-`pm2 flush`   #清除日志
+# 被控端部署-Golang版(推荐):
+代码和执行逻辑重构，大幅降低CPU占用情况，但是不开放源代码，仅提供编译好的文件
+# 被控端部署教程-NodeJS版(此版本不推荐使用，建议使用Golang版):
+推荐使用Golang版被控端，如果需要使用此版本，请自行研究！
 
 
 
