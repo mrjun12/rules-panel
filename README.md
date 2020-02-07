@@ -11,9 +11,9 @@
 
 `location /{     if (!-e $request_filename) {       rewrite ^/(.*)$ /index.php/$1 last;       break;     }    }  `
 
-Apache伪静态配置：
+Apache伪静态.haccess配置：
 
-`<IfModule mod_rewrite.c>
+<IfModule mod_rewrite.c>
 
 RewriteEngine on
 
@@ -23,7 +23,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
 
-</IfModule>`
+</IfModule>
 3. 设置定时任务
 #安装curl
 apt-get install curl -y
