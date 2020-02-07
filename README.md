@@ -50,7 +50,7 @@ Apache伪静态（.htaccess在public文件夹下)配置：
 
 #开启转发(此处为逗比脚本)：
 
-`wget https://ftp.taoluyun.cc/iptables-pf.sh && chmod +x iptables-pf.sh`
+`wget http://ftp.taoluyun.cc/iptables-pf.sh && chmod +x iptables-pf.sh`
 
 然后执行 `./iptables-pf.sh` 执行选项1安装iptables
 
