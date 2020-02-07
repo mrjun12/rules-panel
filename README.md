@@ -11,7 +11,7 @@
 
 `location /{     if (!-e $request_filename) {       rewrite ^/(.*)$ /index.php/$1 last;       break;     }    }  `
 
-Apache伪静态.haccess配置：
+Apache伪静态（.haccess在public文件夹下)配置：
 
 <IfModule mod_rewrite.c>
 
