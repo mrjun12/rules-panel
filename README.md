@@ -13,30 +13,30 @@
 
 Apache伪静态（.haccess在public文件夹下)配置：
 
-<IfModule mod_rewrite.c>
+`<IfModule mod_rewrite.c>`
 
-RewriteEngine on
+`RewriteEngine on`
 
-RewriteCond %{REQUEST_FILENAME} !-d
+`RewriteCond %{REQUEST_FILENAME} !-d`
 
-RewriteCond %{REQUEST_FILENAME} !-f
+`RewriteCond %{REQUEST_FILENAME} !-f`
 
-RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+`RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]`
 
-</IfModule>
+`</IfModule>`
 3. 设置定时任务
 
 #安装curl
 
-apt-get install curl -y
+`apt-get install curl -y`
 
 #设定定时任务（5分钟执行一次）
 
-crontab -e
+`crontab -e`
 
 #添加定时任务，请替换网址为你自己的
 
-*/5 * * * * curl https://网址/cron
+`*/5 * * * * curl https://网址/cron`
 
 4. 导入数据库（test.sql）数据库配置文件app/config.php  默认用户名密码为：admin 123456
 
