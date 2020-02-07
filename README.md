@@ -6,12 +6,12 @@
 
 # 控制端部署：
 
-1. 上传源代码 设置public文件夹为运行目录。
+1. 上传源代码 设置public文件夹为运行目录(注意，文件不包含Master文件夹)。
 2. 伪静态配置：`location /{     if (!-e $request_filename) {       rewrite ^/(.*)$ /index.php/$1 last;       break;     }    }  `
 3. 设置cron定时任务  https://网址/cron (5分钟一次)
 4. 导入数据库（test.sql）数据库配置文件app/config.php  默认用户名密码为：admin 123456
 
-# 被控端部署:
+# 被控端部署-NodeJS版(此版本不推荐使用，建议使用Golang版):
 
 #被控端安装教程（转发机器）
 #被控端安装很简单，被控端会接管iptables的NAT规则，其他NAT命令会失效
@@ -34,6 +34,11 @@
 `curl -sL https://deb.nodesource.com/setup_9.x | sudo bash - apt-get install nodejs`
 
 `npm install pm2 -g`
+
+`npm install n -g`
+
+`n latest`
+
 
 #nodejs和pm2安装结束
 
@@ -85,9 +90,9 @@
 
 `reboot`     
 
-#********到此安装结束，可以愉快地使用了
+#NodeJS版被控端到此安装完成！
 
-##### #其他命令
+##### #其他NodeJS命令
 
 `pm2 list`       #查询
 
@@ -103,4 +108,4 @@
 
 1. 提示文件写入失败：`chown www 网站目录 -R`
 2. 添加完服务器却找不到：给用户分配权限
-3. 如果你的小鸡是NAT，app.js里的ip应该为内网ip
+3. 如果你的小鸡是NAT，主网卡ip应该为内网ip(通常为10.开头)
