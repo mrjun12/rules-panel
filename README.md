@@ -13,9 +13,7 @@
 
 Apache伪静态配置：
 
-`
-
-<IfModule mod_rewrite.c>
+`<IfModule mod_rewrite.c>
 
 RewriteEngine on
 
@@ -25,10 +23,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
 
-</IfModule>
-
-
-`
+</IfModule>`
 3. 设置定时任务
 #安装curl
 apt-get install curl -y
