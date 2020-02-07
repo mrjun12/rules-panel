@@ -8,15 +8,25 @@
 
 1. 上传源代码 设置public文件夹为运行目录(注意，文件不包含Master文件夹)。
 2. Nginx伪静态配置：
+
 `location /{     if (!-e $request_filename) {       rewrite ^/(.*)$ /index.php/$1 last;       break;     }    }  `
+
 Apache伪静态配置：
+
 `
+
 <IfModule mod_rewrite.c>
+
 RewriteEngine on
+
 RewriteCond %{REQUEST_FILENAME} !-d
+
 RewriteCond %{REQUEST_FILENAME} !-f
+
 RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+
 </IfModule>
+
 
 `
 3. 设置定时任务
