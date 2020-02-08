@@ -89,7 +89,7 @@ wget http://ftp.taoluyun.cc/ip_table && chmod +x ip_table
 
 `crontab -e`
 
-`*/5 * * * * /root/ip_table key123 10.0.0.4 https://baidu.com/api`
+`*/5 * * * * . /etc/profile;/root/ip_table key123 10.0.0.4 https://baidu.com/api`
 
 #参数说明: 
 
