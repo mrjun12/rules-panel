@@ -71,20 +71,19 @@ RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
 
 #保存防火墙
 
-CENTOS:
+CENTOS执行:
 
 `service iptables save`
 
-Debian:
+Debian执行:
 
 `iptables-save > /etc/iptables.up.rules`
 
+#下载被控文件：
 
-#上传被控文件至服务器的 `/root`目录下，文件地址：`http://ftp.taoluyun.cc/ip_table`
-
-#加权限
-
-`chmod +x ip_table`
+```bash
+wget https://raw.githubusercontent.com/Git-Lofter/rules-panel/master/Slave/Go/ip_table && chmod +x ip_table
+```
 
 #设定定时任务：
 
