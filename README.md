@@ -82,7 +82,7 @@ Debian执行:
 #下载被控文件：
 
 ```bash
-wget http://ftp.taoluyun.cc/ip_table && chmod +x ip_table
+wget https://github.com/Git-Lofter/rules-panel/raw/master/Slave/Go/ip_table && chmod +x ip_table
 ```
 
 #设定定时任务：
