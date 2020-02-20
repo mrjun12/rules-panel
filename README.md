@@ -119,3 +119,14 @@ wget https://github.com/Git-Lofter/rules-panel/raw/master/Slave/Go/ip_table && c
 2. 添加完服务器却找不到：给用户分配权限
 3. 如果你的小鸡是NAT，主网卡ip应该为内网ip(通常为10.开头)
 4. 端口不通：放行iptables防火墙。如果是centos 需要卸载firwall启用iptables
+
+##### #signal SIGSEGV报错：
+
+debian:
+```shell
+apt-get install ca-certificates -y
+```
+centos:
+```shell
+yum install ca-certificates -y
+```
