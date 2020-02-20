@@ -23,11 +23,12 @@
         <tr>
             <th width="5%"><input type="checkbox" name="checkbox" id="gocheck" jename="chunk"></th>
             <th width="5%" align="left">ID</th>
-            <th width="10%">本地端口</th>
-            <th width="10%">远程端口</th>
+            <th width="5%">本地端口</th>
+            <th width="20%">本地IP</th>
+            <th width="5%">远程端口</th>
             <th width="20%">远程DDNS</th>
             <th width="10%">远程IP</th>
-            <th width="20%">备注</th>
+            <th width="10%">备注</th>
             <th width="20%">操作</th>
         </tr>
         </thead>
@@ -37,6 +38,7 @@
 	            <td align="center"><input type="checkbox" name="checkbox" jename="chunk" value="{$v['id']}"></td>
 	            <td>{$v['id']}</td>
 	            <td>{$v['local_port']}</td>
+	            <td>{$v['local_ip']}</td>
 	            <td>{$v['remote_port']}</td>
 	            <td>{$v['remote_cname']}</td>
 	            <td>{$v['remote_ip']}</td>

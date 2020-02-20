@@ -135,7 +135,7 @@ class index{
         $key = $_GET['key'];
 
         $server = m('server_list')->where([ 'server_key' => $key ])->find();
-        $rules = m('server_rules')->field("local_port,remote_ip,remote_port")->where([ 'server_id' => $server['id'], 'enable' => 1 ])->select();
+        $rules = m('server_rules')->field("local_port,local_ip,remote_ip,remote_port")->where([ 'server_id' => $server['id'], 'enable' => 1 ])->select();
 
         m('server_rules')->where([ 'server_id' => $server['id'] ])->update([ 'status' => 1 ]);
         if(!$server)
@@ -435,6 +435,7 @@ class index{
         $user = $this->getUser();
 
         $local_port = $_POST['local_port'];
+        $local_ip = $_POST['local_ip'];
         $remote_port = $_POST['remote_port'];
         $remote_cname = $_POST['remote_cname'];
         $remote_ip = $_POST['remote_ip'];
@@ -543,6 +544,7 @@ class index{
 
             $data = [
                 'local_port'=> $local_port,
+                'local_ip'=> $local_ip,
                 'remote_port' => $remote_port,
                 'remote_cname' => $remote_cname,
                 'remote_ip' => $remote_ip,
@@ -657,6 +659,7 @@ class index{
         $user = $this->getUser();
 
         $local_port = $_POST['local_port'];
+        $local_ip = $_POST['local_ip'];
         $remote_port = $_POST['remote_port'];
         $remote_cname = $_POST['remote_cname'];
         $remote_ip = $_POST['remote_ip'];
@@ -769,6 +772,7 @@ class index{
 
             $update = [
                 'local_port' => $local_port,
+                'local_ip' => $local_ip,
                 'remote_port' => $remote_port,
                 'remote_cname' => $remote_cname,
                 'remote_ip' => $remote_ip,

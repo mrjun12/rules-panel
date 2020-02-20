@@ -9,6 +9,13 @@
                     <input type="text" id="local_port" autocomplete="off" value="{$rule['local_port']}" class="je-input">
                 </div>
             </div>
+            
+            <div class="je-form-item">
+                <label class="je-label je-f14">本地IP</label>
+                <div class="je-inputbox">
+                    <input type="text" id="local_ip" autocomplete="off" value="{$rule['local_ip']}" class="je-input">
+                </div>
+            </div>
 
             <div class="je-form-item">
                 <label class="je-label je-f14">远程端口</label>
@@ -59,6 +66,7 @@ jeui.use(["jquery","jeBox","jeCheck","jeSelect"],function () {
     $('#btnIframe').click(function(val){
 
         var local_port = document.getElementById("local_port").value;
+        var local_ip = document.getElementById("local_ip").value;
         var remote_port = document.getElementById("remote_port").value;
         var remote_cname = document.getElementById("remote_cname").value;
         var remote_ip = document.getElementById("remote_ip").value;
@@ -72,6 +80,7 @@ jeui.use(["jquery","jeBox","jeCheck","jeSelect"],function () {
             async: true,
             data: {
                 "local_port": local_port,
+                "local_ip": local_ip,
                 "remote_port": remote_port,
                 "remote_cname": remote_cname,
                 "remote_ip": remote_ip,

@@ -51,6 +51,7 @@ CREATE TABLE `server_rules` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `server_id` int(11) NOT NULL COMMENT '服务器ID',
   `local_port` int(255) NOT NULL COMMENT '服务器本地监听端口',
+  `local_ip` varchar(255) DEFAULT NULL,
   `remote_cname` varchar(255) DEFAULT NULL COMMENT '远程服务器ddns',
   `remote_ip` varchar(255) NOT NULL COMMENT '远程IP',
   `remote_port` int(255) NOT NULL COMMENT '远程监听端口',
@@ -81,4 +82,4 @@ CREATE TABLE `user_server` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 
--- 2020-01-07 05:34:53
+-- 2020-02-20 02:22:38
