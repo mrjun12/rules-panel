@@ -57,8 +57,11 @@ CREATE TABLE `server_rules` (
   `remote_port` int(255) NOT NULL COMMENT '远程监听端口',
   `status` int(255) NOT NULL DEFAULT '0' COMMENT '状态：0：等待生效，1：已生效',
   `enable` int(255) NOT NULL DEFAULT '1',
+  `user_id` int(11) NOT NULL,
   `remark` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `server_rules_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 
@@ -82,4 +85,4 @@ CREATE TABLE `user_server` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 
--- 2020-02-20 02:22:38
+-- 2020-02-20 13:19:40

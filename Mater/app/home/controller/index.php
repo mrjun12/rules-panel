@@ -153,13 +153,13 @@ class index{
     
 
     public function viewtest(){
-    	$info = 'Welcome to Use Phppoem !';
+        $info = 'Welcome to Use Phppoem !';
 
-    	assign('varname', $info);// 传递数据到view
-    	// 展示view  默认当前方法名视图
-    	// app/模块/view/控制器/方法.html 即
-    	// app/home/view/index/viewtest.html
-    	v();
+        assign('varname', $info);// 传递数据到view
+        // 展示view  默认当前方法名视图
+        // app/模块/view/控制器/方法.html 即
+        // app/home/view/index/viewtest.html
+        v();
     }
 
     public function addLog( $type , $sid){
@@ -345,6 +345,7 @@ class index{
         
     }
 
+
     public function servers(){
         echo "test";
     }
@@ -361,7 +362,13 @@ class index{
                 $server_list[] = m('server_list')->where(['id' => $v["server_id"]])->find();
             }
 
-            $rule_list = m('server_rules')->where(['server_id' => $server_id])->select();
+            $where = ['server_id' => $server_id];
+
+            if(!$user['admin']){
+                $where['user_id'] = $user["id"];
+            }
+
+            $rule_list = m('server_rules')->where($where)->select();
 
             $server_key = m('server_list')->where(['id' => $server_id])->find()['server_key'];
 
@@ -425,7 +432,14 @@ class index{
     public function editrules(){
         $user = $this->getUser();
         $id = $_GET['rule'];
-        $rule = m('server_rules')->where([ 'id' => $id ])->find();
+
+        $where = ['id' => $id];
+
+        if(!$user['admin']){
+            $where['user_id'] = $user["id"];
+        }
+
+        $rule = m('server_rules')->where($where)->find();
         assign('rule', $rule);
         v();
     }
@@ -550,6 +564,7 @@ class index{
                 'remote_ip' => $remote_ip,
                 'server_id' => $id,
                 'status' => 0,
+                'user_id' => $user['id'],
                 'remark' => $remark
             ];
 
@@ -779,7 +794,13 @@ class index{
                 'remark' => $remark
             ];
 
-            m('server_rules')->where([ 'id' => $rule ])->update($update);
+            $where = ['id' => $rule];
+
+            if(!$user['admin']){
+                $where['user_id'] = $user["id"];
+            }
+
+            m('server_rules')->where($where)->update($update);
 
             $this->addLog(1,$rule);
 
@@ -917,8 +938,17 @@ class index{
         $data = explode(',', $data);
         if($data[0] == 'on') unset($data[0]);
 
+
+
         foreach ($data as $v) {
-            m('server_rules')->where(['id'=>$v])->delete();
+
+            $where = ['id' => $v];
+
+            if(!$user['admin']){
+                $where['user_id'] = $user["id"];
+            }
+
+            m('server_rules')->where($where)->delete();
             $this->addLog(2,$v);
         }
         echoJson(['ret'=>1]);
