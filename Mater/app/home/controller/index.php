@@ -136,6 +136,14 @@ class index{
 
         $server = m('server_list')->where([ 'server_key' => $key ])->find();
         $rules = m('server_rules')->field("local_port,local_ip,remote_ip,remote_port")->where([ 'server_id' => $server['id'], 'enable' => 1 ])->select();
+        
+        if($server["enable"] == 1 && isset($server["server_ip"])){
+        	foreach ($rules as $k => $v){
+        		if(!$v["local_ip"]){
+        			$rules[$k]["local_ip"] = $server["server_ip"];
+        		}
+        	}
+        }
 
         m('server_rules')->where([ 'server_id' => $server['id'] ])->update([ 'status' => 1 ]);
         if(!$server)
@@ -148,6 +156,48 @@ class index{
         }
 
         echoJson($ret);
+    }
+    
+    public function tunnel_getlist_api(){
+    	
+    	header("Content-type: application/octet-stream"); 
+		header("Accept-Ranges: bytes"); 
+		header("Content-Disposition: attachment; filename = test.txt"); //文件命名
+		header("Expires: 0"); 
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0"); 
+
+        //传入Key
+        $key = $_GET['key'];
+
+        $server = m('server_list')->where([ 'server_key' => $key ])->find();
+        $tunnels = m('server_tunnels')->field("username,local_ip")->where([ 'server_id' => $server['id'], 'enable' => 1 ])->select();
+
+        if(count($tunnels)){
+        	
+        	foreach ($tunnels as $tunnel){
+        		echo $tunnel['username'].','.$tunnel['local_ip']."\n";
+        	}
+        }
+        	
+
+    }
+    
+    public function tunnel_api(){
+        //传入Key
+        $key = $_GET['key'];
+        $username = $_GET['username'];
+        $password = $_GET['password'];
+
+        $server = m('server_list')->where([ 'server_key' => $key ])->find();
+        
+        $tunnels = m('server_tunnels')->field("id")->where([ 'server_id' => $server['id'], 'username' => $username, 'password' => $password,'enable' => 1 ])->select();
+
+        if(!count($tunnels))
+            echo "faild";
+        else{
+            echo "success";
+        }
+        
     }
 
     
@@ -380,7 +430,43 @@ class index{
         
         v();
     }
+    
+    public function tunnels(){
+        $user = $this->getUser();
+        $lists = m('user_server')->where(['user_id' => $user["id"]])->select();
+        $server_id = $_GET["id"]?:$lists[0]['server_id'];
+        $is_server = m('user_server')->where(['server_id' => $server_id, 'user_id' => $user["id"]])->find();
+        if(count($lists) and $is_server){
+            $server_list = [];
+            
+            foreach ($lists as $v) {
+                $server_list[] = m('server_list')->where(['id' => $v["server_id"]])->find();
+            }
+
+            $where = ['server_id' => $server_id];
+
+            if(!$user['admin']){
+                $where['user_id'] = $user["id"];
+            }
+
+            $tunnels_list = m('server_tunnels')->where($where)->select();
+
+            $server_key = m('server_list')->where(['id' => $server_id])->find()['server_key'];
+
+            assign('server_id', $server_id);
+            assign('rule_list', $tunnels_list);
+            assign('list', $server_list);
+            assign('server_key', $server_key);
+        }
+        
+        v();
+    }
+    
     public function addrules(){
+        v();
+    }
+    
+    public function addtunnel(){
         v();
     }
 
@@ -441,6 +527,21 @@ class index{
 
         $rule = m('server_rules')->where($where)->find();
         assign('rule', $rule);
+        v();
+    }
+    
+    public function edittunnel(){
+        $user = $this->getUser();
+        $id = $_GET['tunnel'];
+
+        $where = ['id' => $id];
+
+        if(!$user['admin']){
+            $where['user_id'] = $user["id"];
+        }
+
+        $tunnel = m('server_tunnels')->where($where)->find();
+        assign('tunnel', $tunnel);
         v();
     }
 
@@ -583,6 +684,57 @@ class index{
         echoJson($ret);
 
     }
+    
+    public function tunnelajax(){
+
+        $user = $this->getUser();
+
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $local_ip = $_POST['local_ip'];
+        $mark = $_POST['mark'];
+        $id = $_POST['id'];
+        //判断 remote_cname 和 remote_ip都不为空
+        if(!$username || !$password){
+            $ret = [
+                'ret' => 0,
+                'message' => '账号或密码为空！'
+            ];
+            echoJson($ret);
+            return;
+        }
+        
+
+        $where = [
+            'server_id' => $id,
+            'username' => $username,
+            'enable' => 1
+        ];
+        
+        if(!m('server_tunnels')->where($where)->find() and m('user_server')->where([ "user_id" => $user['id'] , "server_id" => $id])->find()){
+
+            $data = [
+            	'server_id' => $id,
+                'username'=> $username,
+                'password'=> $password,
+                'local_ip' => $local_ip,
+                'mark' => $mark
+            ];
+
+            $id = m('server_tunnels')->insert($data);
+
+            $ret['ret'] = 1;
+
+        }else{
+            $ret = [
+                'ret' => 0,
+                'message' => '用户名冲突。'
+            ];
+        }
+
+        echoJson($ret);
+
+    }
 
     public function power_ajax(){
         $user = $this->getUser(1);
@@ -598,6 +750,22 @@ class index{
         $ret['ret'] = 1;
         echoJson($ret);
     }
+    
+    
+    public function server_enableajax(){
+    	
+    	$user = $this->getUser(1);
+    	$id = $_POST['id'];
+    	$enable = $_POST['enable'];
+
+        m('server_list')->where(["id" => $id])->update([ "enable" => $enable ]);
+    	
+    	$ret['ret'] = 1;
+
+        echoJson($ret);
+    	
+    }
+    
 
     public function serverajax(){
 
@@ -608,6 +776,21 @@ class index{
         $server_cname = $_POST['server_cname'];
         $server_port = $_POST['server_port'];
         $remark = $_POST['remark'];
+        
+        if($server_cname){
+        	
+        	$server_ip = gethostbyname($server_cname);  
+            if($server_ip == $server_cname){
+            	$ret = [
+	                'ret' => 0,
+	                'message' => '域名解析错误。'
+	            ];
+	            echoJson($ret);
+	            exit(1);
+            }
+            
+        }
+        
 
         $server_key = rand_str();
 
@@ -791,6 +974,7 @@ class index{
                 'remote_port' => $remote_port,
                 'remote_cname' => $remote_cname,
                 'remote_ip' => $remote_ip,
+                'status' => 0,
                 'remark' => $remark
             ];
 
@@ -810,6 +994,64 @@ class index{
             $ret = [
                 'ret' => 0,
                 'message' => '端口冲突或信息错误。'
+            ];
+        }
+
+        echoJson($ret);
+
+    }
+    
+    public function edittunnelajax(){
+
+        $user = $this->getUser();
+        
+        $id = $_POST['id'];
+        $local_ip = $_POST['local_ip'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $mark = $_POST['mark'];
+        $tunnel = $_POST['tunnel'];
+
+        //判断 remote_cname 和 remote_ip都不为空
+        if(!$username || !$password){
+            $ret = [
+                'ret' => 0,
+                'message' => '用户名或密码为空！'
+            ];
+            echoJson($ret);
+            return;
+        }
+        
+        $where = [
+            'server_id' => $id,
+            'username' => $username,
+            'id' => ['!=',$tunnel],
+            'enable' => 1
+        ];
+        
+        if(!m('server_tunnels')->where($where)->find() and m('user_server')->where([ "user_id" => $user['id'] , "server_id" => $id])->find()){
+
+            $update = [
+                'username' => $username,
+                'password' => $password,
+                'local_ip' => $local_ip,
+                'mark' => $mark
+            ];
+
+            $where = ['id' => $tunnel];
+
+            if(!$user['admin']){
+                $where['user_id'] = $user["id"];
+            }
+
+            m('server_tunnels')->where($where)->update($update);
+
+            $ret['ret'] = 1;
+
+        }else{
+            $ret = [
+                'ret' => 0,
+                'message' => '用户名冲突。'
             ];
         }
 
@@ -871,6 +1113,44 @@ class index{
             m('server_rules')->where([ 'id' => $id ])->update($update);
 
             $this->addLog(1,$id);
+
+            $ret['ret'] = 1;
+
+        }else{
+            $ret = [
+                'ret' => 0,
+                'message' => '端口冲突或信息错误。'
+            ];
+        }
+
+        echoJson($ret);
+
+    }
+    
+    public function tunnelenableajax(){
+
+        $user = $this->getUser();
+
+        $id = $_POST['id'];
+        $enable = $_POST['enable'];
+
+        $tunnel = m('server_tunnels')->where(['id'=>$id])->find();
+        $server_id = $tunnel['server_id'];
+        $username = $tunnel['username'];
+        $where = [
+            'server_id' => $server_id,
+            'username' => $username,
+            'id' => ['!=',$id],
+            'enable' => 1
+        ];
+
+        if((!m('server_tunnels')->where($where)->find() or !$enable ) and m('user_server')->where([ "user_id" => $user['id'] , "server_id" => $server_id])->find() ){
+
+            $update = [
+                'enable' => $enable
+            ];
+
+            m('server_tunnels')->where([ 'id' => $id ])->update($update);
 
             $ret['ret'] = 1;
 
@@ -949,6 +1229,29 @@ class index{
             }
 
             m('server_rules')->where($where)->delete();
+            $this->addLog(2,$v);
+        }
+        echoJson(['ret'=>1]);
+    }
+    
+    public function tunnelsdelete(){
+
+        $user = $this->getUser();
+
+        $data = $_POST['data'];
+        $data = explode(',', $data);
+        if($data[0] == 'on') unset($data[0]);
+
+
+        foreach ($data as $v) {
+
+            $where = ['id' => $v];
+
+            if(!$user['admin']){
+                $where['user_id'] = $user["id"];
+            }
+
+            m('server_tunnels')->where($where)->delete();
             $this->addLog(2,$v);
         }
         echoJson(['ret'=>1]);

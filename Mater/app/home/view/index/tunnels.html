@@ -1,0 +1,187 @@
+<include "../public/head"/>
+<body>
+<div class="je-p20">
+    
+    <blockquote class="je-quote green je-f16 je-ovh  je-mb10">
+        <p class="je-pb5 checkbox">
+            <select class="myselect" id="mySelect">
+
+            	<each "$list as $v">
+            		<option value="{$v['id']}" <if "$_GET['id']==$v['id']">selected</if>>{$v['name']} - {$v['server_cname']} - {$v['server_ip']} - {$v['server_port']}</option>
+				</each>
+                <!--<option value="2" selected>服务器2</option>-->
+            </select>
+            <button class="je-btn" id="addart"><i class="je-icon je-f20">&#xe66e;</i> 添加账号</button>
+            <button class="je-btn je-bg-red" onclick="getTheCheckBoxValue()"><i class="je-icon je-f20">&#xe63e;</i> 批量删除</button>
+            <button class="je-btn je-bg-orange" onclick="location.reload()"><i class="je-icon je-f20">&#xe601;</i></button>
+
+            <input class="je-input" value="KEY: {$server_key}"> 
+        </p>
+    </blockquote>
+    <table class="je-table je-mb20" id="newCheck">
+        <thead>
+        <tr>
+            <th width="5%"><input type="checkbox" name="checkbox" id="gocheck" jename="chunk"></th>
+            <th width="5%" align="left">ID</th>
+            <th width="15%">用户名</th>
+            <th width="15%">密码</th>
+            <th width="20%">本地IP</th>
+            <th width="20%">备注</th>
+            <th width="20%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+    	<each "$rule_list as $v">
+        	<tr>
+	            <td align="center"><input type="checkbox" name="checkbox" jename="chunk" value="{$v['id']}"></td>
+	            <td>{$v['id']}</td>
+	            <td>{$v['username']}</td>
+	            <td>{$v['password']}</td>
+	            <td>{$v['local_ip']}</td>
+                <td>{$v['mark']}</td>
+	            <td align="center">
+                    <input type="checkbox" name="enable" value="{$v['id']}" jename="switch" small jetext="启用,暂停" <if "$v['enable']">checked</if>>
+	                <button class="je-btn je-btn-mini je-f12" onclick="edit('{$v['id']}')">编辑</button>
+	            </td>
+	        </tr>
+		</each>
+        
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+
+	function getTheCheckBoxValue(){
+
+        parent.jeBox.msg('是否删除？', {
+            time: 0 ,
+            button: [ 
+                {
+                    name: '删除',
+                    callback:function(index){
+                        jeBox.close(index);
+                        var test = $("input[name='checkbox']:checked");
+                        var checkBoxValue = ""; 
+                        test.each(function(){
+                            checkBoxValue += $(this).val()+",";
+                        })
+                        checkBoxValue = checkBoxValue.substring(0,checkBoxValue.length-1);
+                        console.log(checkBoxValue);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "tunnelsdelete",
+                            timeout: 60000,
+                            async: true,
+                            data: {
+                                "data":checkBoxValue
+                            },
+                            success: function(data, textStatus) {   
+                                if(data.ret == 0)
+                                    parent.jeBox.alert(data.message);
+                                else{
+                                    parent.jeBox.msg('删除成功。');
+                                    setTimeout(function(){
+                                        location.reload()
+                                    },1000);
+                                }
+                            }
+                        });
+
+                    }
+                },{
+                    name: '取消'
+                }
+            ]
+        });
+
+        
+
+    }
+
+    function edit(id){
+
+        url = 'edittunnel?tunnel='+id+'&id={$server_id}';
+        jeBox.open({
+            type: 'iframe',
+            boxSize: ['70%', '70%'],
+            maxBtn: true,
+            scrollbar: false,
+            content: url
+        });
+
+    }
+
+    jeui.use(["jquery","jeBox","jeDate","jeCheck","jeSelect"],function () {
+
+        $("#addart").on("click",function(){
+            jeBox.open({
+                type: 'iframe',
+                boxSize: ['70%', '70%'],
+                maxBtn: true,
+                scrollbar: false,
+                content: 'addtunnel?id={$server_id}'
+            });
+        })
+        $(".myselect").jeSelect({
+        	sosList: false,
+        	itemfun:function(elem, index, val) {
+        		console.log(val);
+                if(val != undefined){
+            		url = "tunnels?id=" + val;
+            		window.location.href=url;
+                }
+        	}
+        });
+        $(".checkbox").jeCheck();
+        $(".checkbox").jeCheck({jename:"radio"});
+        $(".checkbox").jeCheck({jename:"switch"});
+        $("#newCheck").jeCheck({
+            jename:"chunk",
+            attrName:[false,"勾选"], 
+            itemfun: function(elem,bool) {
+            	console.log(elem)
+                console.log(bool)
+                console.log(elem.prop('checked'))
+            },
+            success:function(elem){
+                jeui.chunkSelect(elem,'#gocheck','on')
+                
+            }
+        });
+        $("#newCheck").jeCheck({
+            jename:"switch",
+            itemfun:function(elem){
+                console.log(elem);
+                console.log(elem[0].value);
+                console.log(elem[0].checked);
+
+                var id = elem[0].value, enable = elem[0].checked?1:0;
+                $.ajax({
+                    type: "POST",
+                    url: "tunnelenableajax",
+                    timeout: 60000,
+                    async: true,
+                    data: {
+                        "id": id,
+                        "enable": enable
+                    },
+                    success: function(data, textStatus) {   
+                        console.log(data);
+                        if(data.ret == 0){
+                            jeBox.alert(data.message);
+                            setTimeout(function(){
+                                    location.reload()
+                            },1000);
+                        }else{
+                            jeBox.msg('操作成功。');
+                        }
+                    }
+                });
+
+            }
+    });
+    });
+</script>
+</body>
+</html>

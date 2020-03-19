@@ -9,6 +9,8 @@ return array(
 	'/logout' => '/home/index/logout',
 	'/cron' => '/home/index/cron',
 	'/api' => '/home/index/api',
+	'/tunnel_api' => '/home/index/tunnel_api',
+	'/tunnel_getlist_api' => '/home/index/tunnel_getlist_api',
 
 	//规则管理
 	'/rules' => '/home/index/rules',
@@ -36,9 +38,19 @@ return array(
 	'/editserverajax' => '/home/index/editserverajax',
 	'/addserver' => '/home/index/addserver',
 	'/serverajax' => '/home/index/serverajax',
+	'/server_enableajax' => '/home/index/server_enableajax',
 
 	//日志
 	'/server_log' => '/home/index/server_log',
 	'/rules_log' => '/home/index/rules_log',
+	
+	//隧道管理
+	// '/tunnels' => '/home/index/tunnels',
+	// '/addtunnel' => '/home/index/addtunnel',
+	// '/tunnelajax' => '/home/index/tunnelajax',
+	// '/tunnelsdelete' => '/home/index/tunnelsdelete',
+	// '/edittunnel' => '/home/index/edittunnel',
+	// '/edittunnelajax' => '/home/index/edittunnelajax',
+	// '/tunnelenableajax' => '/home/index/tunnelenableajax',
 
 );

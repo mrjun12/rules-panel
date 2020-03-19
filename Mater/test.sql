@@ -29,6 +29,7 @@ CREATE TABLE `server_list` (
   `server_ip` varchar(255) NOT NULL COMMENT '服务器IP',
   `server_port` varchar(255) NOT NULL COMMENT '服务器ssh端口',
   `server_key` varchar(255) NOT NULL,
+  `enable` tinyint(2) NOT NULL DEFAULT '0',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
@@ -51,18 +52,35 @@ CREATE TABLE `server_rules` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `server_id` int(11) NOT NULL COMMENT '服务器ID',
   `local_port` int(255) NOT NULL COMMENT '服务器本地监听端口',
-  `local_ip` varchar(255) DEFAULT NULL,
+  `local_ip` varchar(255) NOT NULL,
   `remote_cname` varchar(255) DEFAULT NULL COMMENT '远程服务器ddns',
   `remote_ip` varchar(255) NOT NULL COMMENT '远程IP',
   `remote_port` int(255) NOT NULL COMMENT '远程监听端口',
   `status` int(255) NOT NULL DEFAULT '0' COMMENT '状态：0：等待生效，1：已生效',
   `enable` int(255) NOT NULL DEFAULT '1',
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT '6',
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `user_id` (`user_id`),
-  CONSTRAINT `server_rules_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  KEY `server_id` (`server_id`),
+  CONSTRAINT `server_rules_ibfk_4` FOREIGN KEY (`server_id`) REFERENCES `server_list` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `server_rules_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+
+DROP TABLE IF EXISTS `server_tunnels`;
+CREATE TABLE `server_tunnels` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `server_id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `local_ip` varchar(255) DEFAULT NULL,
+  `enable` tinyint(2) NOT NULL DEFAULT '1',
+  `mark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `server_id` (`server_id`),
+  CONSTRAINT `server_tunnels_ibfk_1` FOREIGN KEY (`server_id`) REFERENCES `server_list` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `user`;
@@ -85,4 +103,4 @@ CREATE TABLE `user_server` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 
--- 2020-02-20 13:19:40
+-- 2020-03-19 11:48:30

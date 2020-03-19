@@ -1,0 +1,96 @@
+<include "../public/head"/>
+<body>
+<div class="je-p20">
+
+        <!--<form id="itemcheac">-->
+            <div class="je-form-item">
+                <label class="je-label je-f14">用户名</label>
+                <div class="je-inputbox">
+                    <input type="text" id="username" autocomplete="off" value="{$tunnel['username']}" class="je-input">
+                </div>
+            </div>
+            
+            <div class="je-form-item">
+                <label class="je-label je-f14">密码</label>
+                <div class="je-inputbox">
+                    <input type="text" id="password" autocomplete="off" value="{$tunnel['password']}" class="je-input">
+                </div>
+            </div>
+
+            <div class="je-form-item">
+                <label class="je-label je-f14">本地IP</label>
+                <div class="je-inputbox">
+                    <input type="text" id="local_ip" autocomplete="off" value="{$tunnel['local_ip']}" class="je-input">
+                </div>
+            </div>
+
+            <div class="je-form-item">
+                <label class="je-label je-f14">备注</label>
+                <div class="je-inputbox">
+                    <input type="text" id="mark" autocomplete="off" value="{$tunnel['mark']}" class="je-input">
+                </div>
+            </div>
+            <div class="je-form-item je-f14">
+                <label class="je-label je-f14"></label>
+                <button class="je-btn" id="btnIframe">修改</button>
+                <button class="je-btn je-bg-native">重置</button>
+            </div>
+        <!--</form>-->
+    
+</div>
+
+<script type="text/javascript">
+    
+jeui.use(["jquery","jeBox","jeCheck","jeSelect"],function () {
+    
+    $(".checkbox").jeCheck();
+    $(".radio").jeCheck({jename:"radio"});
+    $(".switch").jeCheck({jename:"switch"});
+    $(".myselect").jeSelect({
+        sosList: false
+    });
+    var index = parent.jeBox.frameIndex(window.name);
+    $('#btnIframe').click(function(val){
+
+        var local_ip = document.getElementById("local_ip").value;
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var mark = document.getElementById("mark").value;
+        var id = "{$_GET['id']}";
+        var tunnel = "{$_GET['tunnel']}";
+        $.ajax({
+            type: "POST",
+            url: "edittunnelajax",
+            timeout: 60000,
+            async: true,
+            data: {
+                "local_ip": local_ip,
+                "username": username,
+                "password": password,
+                "mark": mark,
+                "id": id,
+                "tunnel": tunnel
+            },
+            success: function(data, textStatus) {   
+    			console.log(data);
+                if(data.ret == 0)
+                    jeBox.alert(data.message);
+                else{
+                    parent.jeBox.msg('更改成功。');
+                    setTimeout(function(){
+                    	parent.location.reload()
+                    },1000);
+                }
+            }
+        });
+        
+    });
+ })
+    
+</script>
+<!--
+http://www.qdfuns.com/notes/13967/3cdebc6a132f33a3e65aa2b6019a7487.html
+http://www.jq22.com/demo/jQueryNavHover20161129/
+-->
+</body>
+</html>

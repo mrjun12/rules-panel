@@ -19,7 +19,7 @@
             <th width="15%">IP</th>
             <th width="15%">Key</th>
             <th width="5%">端口</th>
-            <th width="30%">备注</th>
+            <th width="20%">备注</th>
             <th width="30%">操作</th>
         </tr>
         </thead>
@@ -35,6 +35,7 @@
                 <td>{$v['server_port']}</td>
                 <td>{$v['remark']}</td>
 	            <td align="center">
+	            	<input type="checkbox" name="enable" value="{$v['id']}" jename="switch" small jetext="动态IP,静态IP" <if "$v['enable']">checked</if>>
 	                <button class="je-btn je-btn-mini je-f12" onclick="edit('{$v['id']}')">编辑</button>
 	            </td>
 	        </tr>
@@ -69,6 +70,7 @@
                                 "data":checkBoxValue
                             },
                             success: function(data, textStatus) {   
+                            	console.log(data);
                                 if(data.ret == 0)
                                     parent.jeBox.alert(data.message);
                                 else{
@@ -87,6 +89,8 @@
             ]
         });
     }
+    
+     
 
 
     function edit(id){
@@ -103,6 +107,40 @@
     }
 
     jeui.use(["jquery","jeBox","jeDate","jeCheck","jeSelect"],function () {
+    	
+    	$("#newCheck").jeCheck({
+            jename:"switch",
+            itemfun:function(elem){
+                console.log(elem);
+                console.log(elem[0].value);
+                console.log(elem[0].checked);
+
+                var id = elem[0].value, enable = elem[0].checked?1:0;
+                $.ajax({
+                    type: "POST",
+                    url: "server_enableajax",
+                    timeout: 60000,
+                    async: true,
+                    data: {
+                        "id": id,
+                        "enable": enable
+                    },
+                    success: function(data, textStatus) {   
+                        console.log(data);
+                        if(data.ret == 0){
+                            jeBox.alert(data.message);
+                            setTimeout(function(){
+                                    location.reload()
+                            },1000);
+                        }else{
+                            jeBox.msg('操作成功。');
+                        }
+                    }
+                });
+
+            }
+    });
+    
 
         $("#addart").on("click",function(){
             jeBox.open({
